@@ -17,7 +17,7 @@ Sistem kecerdasan buatan berbasis **MobileNetV2 Transfer Learning** untuk mendet
 
 Pastikan perangkat Anda sudah terinstal:
 
-1. **Python** versi 3.8 atau lebih baru
+1. **Python** versi 3.8 atau lebih baru *(Jika belum ada, silakan unduh dan instal dari situs resmi [python.org](https://www.python.org/downloads/))*
 2. **pip** (package manager Python)
 3. Library yang dibutuhkan:
    - `Flask`
@@ -37,15 +37,23 @@ pip install flask tensorflow opencv-python numpy
 
 ## 🚀 Langkah-Langkah Menjalankan Aplikasi
 
-### Langkah 1 — Buka Terminal
+### Langkah 1 — Clone Repository GitHub
 
-Buka **Command Prompt** atau **Terminal**, lalu arahkan ke folder proyek:
+Buka **Command Prompt** atau **Terminal**, lalu jalankan perintah berikut untuk mengunduh proyek:
 
 ```bash
-cd path/ke/folder/SMART-CT-SCAN_BASED-COVID19_VIRUS_DETECTOR
+git clone https://github.com/pinkansoza/PendeteksiCovid-19.git
 ```
 
-### Langkah 2 — Jalankan Server
+### Langkah 2 — Masuk ke Folder Proyek
+
+Arahkan terminal ke folder proyek yang baru saja diunduh:
+
+```bash
+cd PendeteksiCovid-19
+```
+
+### Langkah 3 — Jalankan Server
 
 Ketik perintah berikut untuk memulai server:
 
@@ -59,7 +67,7 @@ Jika berhasil, akan muncul pesan:
 Membuka server web di http://127.0.0.1:5000
 ```
 
-### Langkah 3 — Buka Aplikasi di Browser
+### Langkah 4 — Buka Aplikasi di Browser
 
 Buka browser (Chrome, Edge, Firefox, dll.), lalu akses alamat:
 
@@ -136,5 +144,7 @@ SMART-CT-SCAN_BASED-COVID19_VIRUS_DETECTOR/
 ├── static/
 │   └── css/
 │       └── style.css           # Stylesheet
+│   └── js/
+│       └── script.js           # Script (pemrosesan JS)
 └── README.md                   # Dokumentasi ini
 ```
