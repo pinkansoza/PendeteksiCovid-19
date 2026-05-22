@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COVID-19 X-Ray AI Diagnoser</title>
+    <meta name="description"
+        content="Sistem kecerdasan buatan berbasis MobileNetV2 untuk deteksi COVID-19 dari citra X-Ray paru-paru.">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Ambient Background -->
+    <div class="bg-ambient">
+        <div class="orb orb--1"></div>
+        <div class="orb orb--2"></div>
+        <div class="orb orb--3"></div>
+    </div>
+
+    <!-- Page Wrapper -->
+    <div class="page">
+        <div class="page__inner">
+
+            <!-- Header -->
+            <header class="header">
+                <!-- <div class="header__badge">
+                    <i class="fa-solid fa-brain"></i> AI-Powered Diagnostic
+                </div> -->
+                <h1 class="header__title">Deteksi COVID-19 Cerdas</h1>
+                <p class="header__subtitle">
+                    Sistem kecerdasan buatan berbasis <strong>MobileNetV2 Transfer Learning</strong>
+                    untuk menganalisis citra X-Ray paru-paru secara <em>real-time</em>.
+                </p>
+            </header>
+
+            <!-- Anggota Tim -->
+            <section class="team-section">
+                <div class="footer__card">
+                    <div class="footer__title">Dibuat oleh Kelompok 4</div>
+                    <div class="team">
+                        <div class="team__member">
+                            <div class="team__name">Najihatul Wilda</div>
+                            <div class="team__nim">2404130031</div>
+                        </div>
+                        <div class="team__member">
+                            <div class="team__name">Pinkan Sofia Zahra</div>
+                            <div class="team__nim">2404130037</div>
+                        </div>
+                        <div class="team__member">
+                            <div class="team__name">Najwa Zakia</div>
+                            <div class="team__nim">2404130040</div>
+                        </div>
+                        <div class="team__member">
+                            <div class="team__name">Najwa Putri Aulia</div>
+                            <div class="team__nim">2404130152</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Main Content Grid -->
+            <div class="main-grid">
+
+                <!-- Left: Info Panel -->
+                <section class="card" id="info-panel">
+                    <h2 class="info__heading">
+                        <i class="fa-solid fa-circle-info"></i> Tentang Aplikasi
+                    </h2>
+                    <p class="info__desc">
+                        Aplikasi ini dirancang untuk mendeteksi keberadaan virus SARS-CoV-2
+                        (COVID-19) berdasarkan pola pada foto rontgen dada (Chest X-Ray)
+                        secara otomatis menggunakan teknologi <em>Deep Learning</em>.
+                    </p>
+
+                    <div class="features">
+                        <div class="feature">
+                            <div class="feature__icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div>
+                                <div class="feature__title">Arsitektur MobileNetV2</div>
+                                <p class="feature__text">Ditenagai arsitektur Deep Learning modern yang efisien tanpa
+                                    mengorbankan akurasi klinis.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <div class="feature__title">Analisis Cepat</div>
+                                <p class="feature__text">Proses pra-pemrosesan hingga prediksi dilakukan hanya dalam
+                                    hitungan milidetik.</p>
+                            </div>
+                        </div>
+                        <div class="feature">
+                            <div class="feature__icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <div>
+                                <div class="feature__title">Keamanan & Privasi</div>
+                                <p class="feature__text">Citra yang Anda unggah dihapus otomatis dari server setelah
+                                    hasil prediksi dikeluarkan.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Right: Upload & Results Panel -->
+                <section class="card" id="app-panel">
+
+                    <!-- Upload Zone -->
+                    <div class="upload-zone" id="drop-zone">
+                        <input type="file" class="upload-zone__input" id="file-input" accept="image/*">
+                        <div class="upload-zone__icon-wrap">
+                            <i class="fa-solid fa-cloud-arrow-up upload-zone__icon"></i>
+                        </div>
+                        <h3 class="upload-zone__title">Unggah Citra X-Ray</h3>
+                        <p class="upload-zone__subtitle">Tarik & lepas file di sini, atau klik untuk menelusuri</p>
+                        <span class="upload-zone__hint">Format: JPG, JPEG, PNG</span>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div class="preview" id="preview-section">
+                        <div class="preview__wrap" id="preview-wrap">
+                            <button class="preview__remove" id="remove-btn" title="Hapus gambar">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                            <img class="preview__img" id="image-preview" src="" alt="Preview X-Ray">
+                            <div class="preview__scan"></div>
+                        </div>
+                    </div>
+
+                    <!-- Analyze Button -->
+                    <button class="btn-analyze" id="analyze-btn">
+                        <span id="btn-text"><i class="fa-solid fa-microscope"></i> Mulai Analisis Citra</span>
+                        <div class="btn-analyze__loader" id="btn-loader">
+                            <div class="spinner"></div>
+                            <span>Memproses...</span>
+                        </div>
+                    </button>
+
+                    <!-- Result -->
+                    <div class="result" id="result-section">
+                        <div class="result__card" id="result-card">
+                            <i class="result__icon fa-solid fa-circle-check" id="result-icon"></i>
+                            <h3 class="result__status" id="status-badge">Normal</h3>
+
+                            <div class="confidence">
+                                <div class="confidence__header">
+                                    <span class="confidence__label">Tingkat Keyakinan AI</span>
+                                    <span class="confidence__value" id="confidence-text">0%</span>
+                                </div>
+                                <div class="confidence__track">
+                                    <div class="confidence__fill" id="confidence-bar"></div>
+                                </div>
+                            </div>
+
+                            <div class="interpretation">
+                                <h4 class="interpretation__title">
+                                    <i class="fa-solid fa-stethoscope"></i> Interpretasi Medis
+                                </h4>
+                                <p class="interpretation__text" id="interpretation-text">Sedang memproses...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2026 Kelompok 4 Teknik Informatika &mdash; Smart CT-Scan Based COVID-19 Virus Detector</p>
+        </footer>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // DOM Elements
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewSection = document.getElementById('preview-section');
+        const previewWrap = document.getElementById('preview-wrap');
+        const imagePreview = document.getElementById('image-preview');
+        const removeBtn = document.getElementById('remove-btn');
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const btnText = document.getElementById('btn-text');
+        const btnLoader = document.getElementById('btn-loader');
+        const resultSection = document.getElementById('result-section');
+        const resultCard = document.getElementById('result-card');
+        const resultIcon = document.getElementById('result-icon');
+        const statusBadge = document.getElementById('status-badge');
+
+        let currentFile = null;
+
+        // --- Drag & Drop ---
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt =>
+            dropZone.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); })
+        );
+        ['dragenter', 'dragover'].forEach(evt =>
+            dropZone.addEventListener(evt, () => dropZone.classList.add('dragover'))
+        );
+        ['dragleave', 'drop'].forEach(evt =>
+            dropZone.addEventListener(evt, () => dropZone.classList.remove('dragover'))
+        );
+        dropZone.addEventListener('drop', e => handleFiles(e.dataTransfer.files));
+        fileInput.addEventListener('change', function () { handleFiles(this.files); });
+
+        // --- File Handler ---
+        function handleFiles(files) {
+            if (files.length === 0) return;
+            const file = files[0];
+            if (!file.type.startsWith('image/')) {
+                alert('Mohon unggah file gambar yang valid (JPG/PNG).');
+                return;
+            }
+            currentFile = file;
+            const reader = new FileReader();
+            reader.onload = e => {
+                imagePreview.src = e.target.result;
+                dropZone.style.display = 'none';
+                previewSection.style.display = 'block';
+                analyzeBtn.style.display = 'block';
+                resultSection.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // --- Remove / Reset ---
+        removeBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            currentFile = null;
+            fileInput.value = '';
+            previewSection.style.display = 'none';
+            analyzeBtn.style.display = 'none';
+            resultSection.style.display = 'none';
+            dropZone.style.display = 'block';
+            previewWrap.classList.remove('scanning');
+        });
+
+        // --- Analyze ---
+        analyzeBtn.addEventListener('click', async () => {
+            if (!currentFile) return;
+
+            // Start scan animation
+            previewWrap.classList.add('scanning');
+
+            // Loading state
+            btnText.style.display = 'none';
+            btnLoader.style.display = 'flex';
+            analyzeBtn.disabled = true;
+            resultSection.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('file', currentFile);
+            formData.append('mode', 'covid19');
+
+            try {
+                const res = await fetch('/predict', { method: 'POST', body: formData });
+                const data = await res.json();
+
+                if (res.ok) {
+                    previewWrap.classList.remove('scanning');
+
+                    const isDanger = data.status_type === 'danger';
+                    resultCard.className = `result__card ${isDanger ? 'is-danger' : 'is-safe'}`;
+                    resultIcon.className = isDanger
+                        ? 'result__icon fa-solid fa-triangle-exclamation'
+                        : 'result__icon fa-solid fa-circle-check';
+
+                    statusBadge.textContent = data.status;
+
+                    // Confidence bar
+                    const conf = data.confidence;
+                    document.getElementById('confidence-text').textContent = `${conf}%`;
+                    document.getElementById('confidence-bar').style.width = '0%';
+                    requestAnimationFrame(() => {
+                        document.getElementById('confidence-bar').style.width = `${conf}%`;
+                    });
+
+                    // Interpretation
+                    const el = document.getElementById('interpretation-text');
+                    const score = data.raw_score.toFixed(4);
+                    if (isDanger) {
+                        el.innerHTML = `Model AI mendeteksi adanya pola abnormalitas pada citra rontgen yang konsisten dengan infeksi COVID-19 <em>(Skor: ${score})</em>.<br><br><strong style="color:var(--danger-light)">Saran:</strong> Segera konsultasikan dengan tenaga medis profesional untuk pemeriksaan lebih lanjut.`;
+                    } else {
+                        el.innerHTML = `Citra rontgen tidak menunjukkan pola infeksi COVID-19 yang signifikan <em>(Skor: ${score})</em>. Paru-paru terdeteksi normal.<br><br><strong style="color:var(--safe-light)">Saran:</strong> Tetap jaga kesehatan dan patuhi protokol yang berlaku.`;
+                    }
+
+                    resultSection.style.display = 'block';
+                    setTimeout(() => resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+                } else {
+                    alert('Error: ' + data.error);
+                    previewWrap.classList.remove('scanning');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Terjadi kesalahan saat menghubungi server.');
+                previewWrap.classList.remove('scanning');
+            } finally {
+                btnText.style.display = 'block';
+                btnLoader.style.display = 'none';
+                analyzeBtn.disabled = false;
+            }
+        });
+    </script>
+
+</body>
+
+</html>
