@@ -1,16 +1,6 @@
 # 🦠 COVID-19 X-Ray AI Diagnoser
 
 Sistem kecerdasan buatan berbasis **MobileNetV2 Transfer Learning** untuk mendeteksi COVID-19 dari citra X-Ray paru-paru secara *real-time*.
-
-> **Kelompok 4 — Pengolahan Citra Digital**
-
-| Nama | NIM |
-|------|-----|
-| Najihatul Wilda | 2404130031 |
-| Pinkan Sofia Zahra | 2404130037 |
-| Najwa Zakia | 2404130040 |
-| Najwa Putri Aulia | 2404130152 |
-
 ---
 
 ## 📋 Prasyarat (Requirement)
